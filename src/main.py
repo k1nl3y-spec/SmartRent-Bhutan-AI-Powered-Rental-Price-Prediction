@@ -1,8 +1,9 @@
+"""Entry point for the SmartRent Bhutan FastAPI application."""
 from fastapi import FastAPI
 
-app = FastAPI()
+from src.api.routes import router
+from src.core.config import get_settings
 
-@app.get("/")
-def read_root():
-    return {"message": "SmartRent Bhutan API is running 🚀"}
-
+settings = get_settings()
+app = FastAPI(title=settings.project_name, version=settings.api_version)
+app.include_router(router)
